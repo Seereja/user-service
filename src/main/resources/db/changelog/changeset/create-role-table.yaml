@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-role-table
+      author: Shilin Sergey
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: role
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

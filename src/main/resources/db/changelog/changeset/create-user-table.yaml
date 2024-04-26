@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: Shilin Sergey
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: inn
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: passport_number
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: login
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: password
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: snils
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+
