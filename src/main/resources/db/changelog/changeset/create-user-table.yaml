@@ -23,14 +23,9 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: birth_date
-                  type: timestamp
+                  type: date
                   constraints:
                     nullable: false
-              - column:
-                  name: inn
-                  type: varchar(20)
-                  constraints:
-                    nullable: true
               - column:
                   name: passport_number
                   type: varchar(20)
@@ -51,4 +46,3 @@ databaseChangeLog:
                   type: varchar(20)
                   constraints:
                     nullable: true
-
