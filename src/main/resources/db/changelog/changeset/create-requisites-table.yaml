@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-requisites-table
+      author: Shilin Sergey
+      changes:
+        - createTable:
+            tableName: requisites
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: settlement_account
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bik
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: correspondent_account
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: inn
+                  type: varchar(25)
+              - column:
+                  name: kpp
+                  type: varchar(50)
+              - column:
+                  name: kbk
+                  type: varchar(50)
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: requisites
+            baseColumnNames: user_id
+            constraintName: fk_requisites_user_id_to_user_id
+            referencedTableName: users
+            referencedColumnNames: id
