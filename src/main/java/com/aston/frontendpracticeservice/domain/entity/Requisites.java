@@ -4,15 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.UuidGenerator;
@@ -31,17 +28,15 @@ import java.util.UUID;
 
 @Entity
 @Builder
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "requisites")
-public class Requisites {
+public class Requisites{
+
 
     /**
      * id.
      */
-
     @Id
     @UuidGenerator
     @Column(name = "id", nullable = false)
@@ -97,7 +92,6 @@ public class Requisites {
 
 
     @OneToOne
-    @MapsId
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @Cascade({CascadeType.PERSIST, CascadeType.MERGE})
     private User user;
@@ -106,11 +100,75 @@ public class Requisites {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Requisites that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getInn(), that.getInn());
+        return Objects.equals(id, that.id) && Objects.equals(getInn(), that.getInn());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getInn());
+        return Objects.hash(id, getInn());
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getSettlementAccount() {
+        return settlementAccount;
+    }
+
+    public void setSettlementAccount(String settlementAccount) {
+        this.settlementAccount = settlementAccount;
+    }
+
+    public String getBik() {
+        return bik;
+    }
+
+    public void setBik(String bik) {
+        this.bik = bik;
+    }
+
+    public String getCorrespondentAccount() {
+        return correspondentAccount;
+    }
+
+    public void setCorrespondentAccount(String correspondentAccount) {
+        this.correspondentAccount = correspondentAccount;
+    }
+
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public String getKpp() {
+        return kpp;
+    }
+
+    public void setKpp(String kpp) {
+        this.kpp = kpp;
+    }
+
+    public String getKbk() {
+        return kbk;
+    }
+
+    public void setKbk(String kbk) {
+        this.kbk = kbk;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

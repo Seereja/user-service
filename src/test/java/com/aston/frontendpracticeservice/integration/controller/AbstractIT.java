@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @AutoConfigureMockMvc
 public abstract class AbstractIT {
 
+
     /**
      * Метод создания RequestBuilder для GET-запроса.
      *
@@ -22,6 +23,19 @@ public abstract class AbstractIT {
         return MockMvcRequestBuilders
                 .request(HttpMethod.GET, url)
                 .contentType(MediaType.APPLICATION_JSON);
+    }
+
+    /**
+     * Метод создания RequestBuilder для POST-запроса.
+     *
+     * @param url URL POST-запроса
+     * @return MockHttpServletRequestBuilder для дальнейшего построения запроса
+     */
+    protected MockHttpServletRequestBuilder postRequest(String url, String body) {
+        return MockMvcRequestBuilders
+                .request(HttpMethod.POST, url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body);
     }
 
 }

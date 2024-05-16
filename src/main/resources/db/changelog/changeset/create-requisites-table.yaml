@@ -38,8 +38,6 @@ databaseChangeLog:
               - column:
                   name: user_id
                   type: uuid
-                  constraints:
-                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: requisites
             baseColumnNames: user_id

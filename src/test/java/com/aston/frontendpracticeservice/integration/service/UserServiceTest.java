@@ -4,14 +4,14 @@ import com.aston.frontendpracticeservice.annotation.TestContainerizedSpringBootT
 import com.aston.frontendpracticeservice.domain.entity.User;
 import com.aston.frontendpracticeservice.exception.UserNotFoundException;
 import com.aston.frontendpracticeservice.service.UserService;
-import com.aston.frontendpracticeservice.utils.EntityGenerator;
+import com.aston.frontendpracticeservice.utils.entity.EntityGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
-import static com.aston.frontendpracticeservice.utils.EntityGeneratorConstant.LOGIN;
-import static com.aston.frontendpracticeservice.utils.UserServiceTestConstant.INVALID_LOGIN;
+import static com.aston.frontendpracticeservice.utils.entity.EntityGeneratorConstant.LOGIN;
+import static com.aston.frontendpracticeservice.utils.service.UserServiceTestConstant.INVALID_LOGIN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,6 +42,8 @@ class UserServiceTest {
     void testShouldReturnNotfoundException() {
         assertThrows(UserNotFoundException.class, () -> userService.findByLogin(INVALID_LOGIN));
     }
+
+
 
 
 }
