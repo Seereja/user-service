@@ -29,7 +29,6 @@ public class UserFacade {
 
     private final KafkaProducerService kafkaProducerService;
 
-    @Transactional
     public PersonalInformationCreateResponseDto addUser(PersonalInformationCreateRequestDto personalInformationCreateRequestDto) {
         log.info("Add new user with data: {}", personalInformationCreateRequestDto);
         User userBeforeSave = userMapper.toUser(personalInformationCreateRequestDto);

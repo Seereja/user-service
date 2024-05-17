@@ -8,34 +8,42 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
 
 import static com.aston.frontendpracticeservice.utils.kafka.KafkaGeneratorConstant.infoEvent;
+import static org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG;
 import static org.junit.Assert.assertEquals;
 
+@SpringBootTest
 @DirtiesContext
-@SpringBootTest(properties = "spring.kafka.bootstrap-servers=localhost:9092")
-@ExtendWith(SpringExtension.class)
-@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
+@Testcontainers
 class KafkaProducerServiceTest {
 
-    public static final String TOPIC_NAME_SEND_CLIENT = "registration-notification";
     public static final String TOPIC_INFO_EVENT = "info-notification";
-
 
     @Autowired
     private KafkaProducerService kafkaProducerService;
 
+    @Container
+    public static final KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.0.9"));
+
+    @DynamicPropertySource
+    public static void dynamicProperties(DynamicPropertyRegistry propertyRegistry) {
+        propertyRegistry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
+    }
 
     @Test
     @DisplayName("Kafka should send registration event")
@@ -46,7 +54,7 @@ class KafkaProducerServiceTest {
 
 
         Properties properties = new Properties();
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(BOOTSTRAP_SERVERS_CONFIG, kafkaContainer.getBootstrapServers());
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         properties.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
